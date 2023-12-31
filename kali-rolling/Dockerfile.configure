@@ -1,0 +1,29 @@
+# DESCRIPTION:
+#   This Dockerfile modify the previous build image from Dokcerfile by
+#   adding additional tools and configurations.
+#
+# USAGE:
+#   Modify `FROM <TAG>` with your correct tag name you used in the previous
+#   build for my case it's `localhost/kali-rolling:latest`
+#
+#   To install new tools just append them to file `packages.txt`. Each
+#   package on a new line.
+#
+# BUILD:
+#   $ docker build -f Dockerfile.configure -t localhost/kali-rolling:latest --build-arg USER=$USER .
+#
+FROM localhost/kali-rolling:latest
+
+LABEL maintainer "mohabaks <mohabaks@protonmail.com>"
+
+ARG USER
+
+COPY packages* /tmp
+COPY config.sh /tmp
+COPY home/* /home/${USER}
+
+RUN cd /tmp && chmod +x *.sh \
+    && ./packages.sh \
+    && ./config.sh \
+    && sudo rm -rf packages* config.sh home \
+    && sudo localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8

@@ -1,0 +1,447 @@
+#!/usr/bin/bash
+# Author:        https://github.com/mohabaks
+
+#-----------------------------------------------------------------------------
+#
+#                       Global Variables
+#
+#-----------------------------------------------------------------------------
+
+APP_BASE_DIR="$HOME/.config/docker"
+
+#-----------------------------------------------------------------------------
+#
+#                       Hellper Functions
+#
+#-----------------------------------------------------------------------------
+
+cli(){
+        docker run -it --rm --name ${IMAGE} -v $(pwd):/${IMAGE} $@
+}
+
+gui(){
+        docker run -d --rm --name ${IMAGE} \
+               -e DISPLAY=$DISPLAY \
+               -e GDK_DPI_SCALE \
+               -e GDK_SCALE \
+               -e QT_DEVICE_PIXEL_RATIO \
+               -e _JAVA_AWT_WM_NONREPARENTING=1 \
+               -e _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=gasp' \
+               -e DBUS_SESSION_BUS_ADDRESS="unix:path=/tmp/bus" \
+               -e WAYLAND_DISPLAY=/tmp/wayland-0 \
+               -v $HOME/.config/gtk-3.0:/${HOME}/.config/gtk-3.0:ro \
+               -v $HOME/.config/Trolltech.conf:/${HOME}/.config/Trolltech.conf:ro \
+               -v $HOME/.config/dconf:/${HOME}/.config/dconf:ro \
+               -v $HOME/.fonts:/${HOME}/.fonts:ro \
+               -v $HOME/.gtkrc-2.0:/${HOME}/.gtkrc-2.0:ro \
+               -v $HOME/.icons:/${HOME}/.icons:ro \
+               -v $HOME/.themes:/${HOME}/.themes:ro \
+               -v $HOME/Downloads:$HOME/Downloads \
+               -v $HOME/Workspace:$HOME/Workspace \
+               -v /var/run/dbus:/var/run/dbus \
+               -v /dev/shm:/dev/shm:z \
+               -v /etc/localtime:/etc/localtime:ro \
+               -v /tmp/.X11-unix:/tmp/.X11-unix \
+               -v /run/user/1000/bus:/run/user/1000/bus \
+               -v $XDG_RUNTIME_DIR/$WAYLAND_DISPLAY:/tmp/wayland-0 \
+               --memory 2gb \
+               --cpus 2 \
+               --shm-size=1024m \
+               --device /dev/fuse \
+               --device /dev/dri $@
+}
+
+#-----------------------------------------------------------------------------
+#
+#                       GUI Containers
+#
+#-----------------------------------------------------------------------------
+
+altair-graphql(){
+        local IMAGE="altair-graphql"
+        gui -v "$APP_BASE_DIR/altair":"${HOME}/.config/altair" \
+            --cap-add SYS_ADMIN \
+            ${IMAGE}:latest bash
+}
+
+burpsuite(){
+        local IMAGE=burpsuite
+        gui -v "$APP_BASE_DIR/burpsuite":"${HOME}/.BurpSuite" \
+            -v "$APP_BASE_DIR/.java":"${HOME}/.java" \
+            ${IMAGE}:latest
+}
+
+caido(){
+        local IMAGE="caido"
+        gui -v "$APP_BASE_DIR/caido":"${HOME}/.local/share" \
+            --cap-add SYS_ADMIN \
+            ${IMAGE}:latest
+}
+
+firefox(){
+        local IMAGE=firefox
+        gui -v "$APP_BASE_DIR/firefox":"$HOME/.mozilla" \
+            ${IMAGE}:latest $@
+}
+
+#-----------------------------------------------------------------------------
+#
+#                       CLI Containers
+#
+#-----------------------------------------------------------------------------
+
+amass(){
+        local IMAGE=amass
+        cli ${IMAGE}:latest $@
+}
+
+asnlookup(){
+        local IMAGE=asnlookup
+        cli ${IMAGE}:latest $@
+}
+
+brutespray(){
+        local IMAGE=brutespray
+        cli ${IMAGE}:latest $@
+}
+
+certipy(){
+        local IMAGE=certipy
+        cli ${IMAGE}:latest $@
+}
+
+clairvoyance(){
+        local IMAGE=clairvoyance
+        cli ${IMAGE}:latest $@
+}
+
+cookie-monster(){
+        local IMAGE=cookie-monster
+        cli ${IMAGE}:latest $@
+}
+
+crackql(){
+        local IMAGE=crackql
+        cli ${IMAGE}:latest $@
+}
+
+dex2jar(){
+        local IMAGE=dex2jar
+        cli ${IMAGE}:latest $@
+}
+
+domlink(){
+        local IMAGE=domlink
+        cli ${IMAGE}:latest $@
+}
+
+eyewitness(){
+        local IMAGE=eyewitness
+        cli ${IMAGE}:latest $@
+}
+
+feroxbuster(){
+        local IMAGE=feroxbuster
+        cli ${IMAGE}:latest $@
+}
+
+ffuf(){
+        local IMAGE=ffuf
+        cli ${IMAGE}:latest $@
+}
+
+gau(){
+        local IMAGE=gau
+        cli ${IMAGE}:latest $@
+}
+
+gitgot(){
+        local IMAGE=gitgot
+        cli ${IMAGE}:latest $@
+}
+
+githound(){
+        local IMAGE=githound
+        cli ${IMAGE}:latest $@
+}
+
+github-subdomains(){
+        local IMAGE=github-search
+        cli ${IMAGE}:latest github-subdomains $@
+}
+
+github-secrets(){
+        local IMAGE=github-search
+        cli ${IMAGE}:latest github-secrets $@
+}
+
+github-endpoints(){
+        local IMAGE=github-search
+        cli ${IMAGE}:latest github-endpoints $@
+}
+
+github-employees(){
+        local IMAGE=github-search
+        cli ${IMAGE}:latest github-employees $@
+}
+
+gitoops(){
+        local IMAGE=gitoops
+        cli ${IMAGE}:latest $@
+}
+
+goaltdns(){
+        local IMAGE=goaltdns
+        cli ${IMAGE}:latest $@
+}
+
+gobuster(){
+        local IMAGE=gobuster
+        cli ${IMAGE}:latest $@
+}
+
+gospider(){
+        local IMAGE=gospider
+        cli ${IMAGE}:latest $@
+}
+
+graphql-cop(){
+        local IMAGE=graphql-cop
+        cli ${IMAGE}:latest $@
+}
+
+graphql-path-enum(){
+        local IMAGE=graphql-path-enum
+        cli ${IMAGE}:latest $@
+}
+
+graphw00f(){
+        local IMAGE=graphw00f
+        cli ${IMAGE}:latest $@
+}
+
+hakrawler(){
+        local IMAGE=hakrawler
+        cli ${IMAGE}:latest $@
+}
+
+httpx(){
+        local IMAGE=httpx
+        cli ${IMAGE}:latest $@
+}
+
+impacket(){
+        local IMAGE=impacket
+        cli ${IMAGE}:latest ash
+}
+
+jadx_cli(){
+        local IMAGE=jadx
+        cli ${IMAGE}:latest cli $@
+}
+
+john(){
+        local IMAGE=john
+        cli ${IMAGE}:latest ash
+}
+
+js-beautify(){
+        local IMAGE=js-beautify
+        cli ${IMAGE}:latest $@
+}
+
+jsluice(){
+        local IMAGE=jsluice
+        cli ${IMAGE}:latest $@
+}
+
+knockpy(){
+        local IMAGE=knockpy
+        cli ${IMAGE}:latest $@
+}
+
+linkfinder(){
+        local IMAGE=linkfinder
+        cli ${IMAGE}:latest $@
+}
+
+masscan(){
+        local IMAGE=masscan
+        cli --cap-add=NET_ADMIN \
+            --cap-add=NET_RAW \
+            ${IMAGE}:latest $@
+}
+
+massdns(){
+        local IMAGE=massdns
+        cli ${IMAGE}:latest $@
+}
+
+metabigor(){
+        local IMAGE=metabigor
+        cli ${IMAGE}:latest $@
+}
+
+metasploit(){
+        local IMAGE=metasploit
+        cli ${IMAGE}:latest bash
+}
+
+mobsf(){
+        local IMAGE=mobsf
+        cli ${IMAGE}:latest $@
+}
+
+naabu(){
+        local IMAGE=naabu
+        cli ${IMAGE}:latest $@
+}
+
+nc(){
+        local IMAGE=nc
+        cli ${IMAGE}:latest $@
+}
+
+nxc(){
+        local IMAGE=netexec
+        cli ${IMAGE}:latest $@
+}
+
+nmap(){
+        local IMAGE=nmap
+        cli --cap-add=NET_ADMIN \
+            --cap-add=NET_RAW \
+            ${IMAGE}:latest $@
+}
+
+nuclei(){
+        local IMAGE=nuclei
+        cli ${IMAGE}:latest $@
+}
+
+openvpn(){
+        local IMAGE=openvpn
+        cli -v $HOME/.config/openvpn:/vpn \
+            --device /dev/net/tun \
+            --cap-add=NET_ADMIN \
+            ${IMAGE}:latest $@
+}
+
+pacu(){
+        local IMAGE=pacu
+        cli ${IMAGE}:latest $@
+}
+
+paramspider(){
+        local IMAGE=paramspider
+        cli ${IMAGE}:latest $@
+}
+
+ripgen(){
+        local IMAGE=ripgen
+        cli ${IMAGE}:latest $@
+}
+
+shosubgo(){
+        local IMAGE=shosubgo
+        cli ${IMAGE}:latest $@
+}
+
+shuffledns(){
+        local IMAGE=shuffledns
+        cli ${IMAGE}:latest $@
+}
+
+smbtools(){
+        local IMAGE=smbtools
+        cli ${IMAGE}:latest bash
+}
+
+sqlmap(){
+        local IMAGE=sqlmap
+        cli ${IMAGE}:latest $@
+}
+
+subdomainizer(){
+        local IMAGE=subdomainizer
+        cli ${IMAGE}:latest $@
+}
+
+
+subfinder(){
+        local IMAGE=subfinder
+        cli ${IMAGE}:latest $@
+}
+
+subjack(){
+        local IMAGE=subjack
+        cli ${IMAGE}:latest $@
+}
+
+sublist3r(){
+        local IMAGE=sublist3r
+        cli ${IMAGE}:latest $@
+}
+
+theharvester(){
+        local IMAGE=theharvester
+        cli ${IMAGE}:latest $@
+}
+
+meg(){
+        local IMAGE=tomnomnom
+        cli ${IMAGE}:latest meg $@
+}
+
+gf(){
+        local IMAGE=tomnomnom
+        cli ${IMAGE}:latest meg $@
+}
+
+assetfinder(){
+        local IMAGE=tomnomnom
+        cli ${IMAGE}:latest meg $@
+}
+
+waybackurls(){
+        local IMAGE=tomnomnom
+        cli ${IMAGE}:latest meg $@
+}
+
+httprobe(){
+        local IMAGE=tomnomnom
+        cli ${IMAGE}:latest meg $@
+}
+
+anew(){
+        local IMAGE=tomnomnom
+        cli ${IMAGE}:latest meg $@
+}
+
+gron(){
+        local IMAGE=tomnomnom
+        cli ${IMAGE}:latest meg $@
+}
+
+unfurl(){
+        local IMAGE=unfurl
+        cli ${IMAGE}:latest $@
+}
+
+wpscan(){
+        local IMAGE=wpscan
+        cli ${IMAGE}:latest $@
+}
+
+ysoserial(){
+        local IMAGE=ysoserial
+        cli ${IMAGE}:latest $@
+}
+
+evil-winrm(){
+        local IMAGE=evil-winrm
+        cli ${IMAGE}:latest $@
+}
+
+
+# vim: set filetype=sh :
