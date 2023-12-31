@@ -3,7 +3,7 @@
 This repository contains Dockerfiles for various tools I use for CTFs/BugBounty. Using
 containers provides me with the flexibility and convenience of running these tools
 without the need for dedicated virtual machines, making it ideal for my low-power
-laptops and reducing the hassle of managing different environments.
+laptop and reducing the hassle of managing different environments.
 
 > Some of the Dockerfiles included in this repository are collected from other projects and have been slightly modified. All credit and thanks for those Dockerfiles belong to their original authors and contributors.
 
@@ -26,10 +26,17 @@ Make sure you have either Docker or Podman installed on your system:
    $ # For more options, refer to the help menu:
    $ ./build.sh -h
    ```
-2. Source the provided sample [.podmanfunc](https://github.com/mohabaks/dockerfiles/blob/main/.podmanfunc).The script define the podman commands used to run the containers. Feel free to adjust the container settings, volumes, or other parameters according to your needs:
+2. Alternatively you can user [terraform](https://www.terraform.io/) to build images:
+
+   ```sh
+   $ cd terraform
+   $ terraform init
+   $ terrafrom apply
+   ```
+3. Source the provided sample [.dockerfunc](https://github.com/mohabaks/dockerfiles/blob/main/.dockerfunc).The script define the podman commands used to run the containers. Feel free to adjust the container settings, volumes, or other parameters according to your needs:
 
     ```sh
-    $ source .podmanfunc
+    $ source .dockerfunc
     $ # e.g run nmap from previous build image
     $ nmap -h
     ```
