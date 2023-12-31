@@ -26,7 +26,7 @@ Make sure you have either Docker or Podman installed on your system:
    $ # For more options, refer to the help menu:
    $ ./build.sh -h
    ```
-2. Alternatively you can user [terraform](https://www.terraform.io/) to build images:
+2. Alternatively you can use [terraform](https://www.terraform.io/) to build images:
 
    ```sh
    $ cd terraform
