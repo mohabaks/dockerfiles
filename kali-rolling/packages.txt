@@ -1,13 +1,12 @@
 awscli
 bloodhound
-burpsuite
+eyewitness
 default-mysql-client
 dotnet-runtime-6.0
 dotnet-sdk-6.0
 evil-winrm
 exploitdb
 firefox-esr
-ghidra
 gss-ntlmssp
 hydra
 john
