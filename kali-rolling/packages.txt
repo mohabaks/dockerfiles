@@ -40,3 +40,5 @@ wpscan
 node-ws
 wl-clipboard
 python3.11-venv
+onesixtyone
+snmp
